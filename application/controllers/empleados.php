@@ -73,7 +73,7 @@ class Empleados extends CI_Controller {
 			redirect('empleados/'.$insert_id);
 			
    			
-			echo '<div class="label label-success" role="alert">Empleado capturado satisfactoriamente'.$insert_id.'</div>';
+			
 
 		}
 

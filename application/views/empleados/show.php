@@ -7,7 +7,7 @@
 	</p>
 </div>
 	<div class="col-xs-6">
-		<?=form_open('empleados/index');?>
+		<?=form_open('empleados/search');?>
 		<?php 	$search = array('name' => 'search','id' => 'search','value'=>'' );?>
 		<?=	form_input($search);?> <input type=submit value='Search' /></p>
 		<?=form_close();?>
