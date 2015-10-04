@@ -35,7 +35,7 @@ class Empleados extends CI_Controller {
 	}
 	public function add() {
 		
-		$this->form_validation->set_rules('num_empleado', 'Numero de empleado', 'trim|required|is_unique|numeric|min_length[5]|max_length[6]');
+		$this->form_validation->set_rules('num_empleado', 'Numero de empleado', 'trim|required|numeric|min_length[5]|max_length[6]');
 		$this->form_validation->set_rules('nombres', 'Nombre(s)', 'trim|required|min_length[4]|max_length[20]');
 		$this->form_validation->set_rules('apellido_pat', 'Apellido Paterno', 'trim|required|min_length[4]|max_length[20]');
 		$this->form_validation->set_rules('apellido_mat', 'Apellido Materno', 'trim|required|min_length[4]|max_length[20]');
@@ -70,8 +70,12 @@ class Empleados extends CI_Controller {
 			));
 
 			$insert_id = $this->db->insert_id();
-			redirect('empleados/'.$insert_id);
-			
+
+			if (isset($insert_id)) {
+				echo "<script>location.href='empleados/".$insert_id."</script>"; 
+			}
+			//redirect('empleados/'.$insert_id);
+			//echo '<div id= "redirect" class="label label-danger" role="alert">Llene todos los campos correctamente</div>';
    			
 			
 
@@ -164,6 +168,10 @@ class Empleados extends CI_Controller {
 		//$data['empleados'] = $this->empleado_model->get_empleados();
 		
 		$data['empleado'] = $this->empleado_model->get_search();
+		if (empty($data['empleado'])) {
+			$data['noencontrado'] = " <strong>Atencion!</strong> Empleado no encontrado";
+			$data['empleado'] = NULL;
+		}
 		$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');
 		$data['index'] = "empleados/index";
 		$this->load->view('layouts/index', $data);

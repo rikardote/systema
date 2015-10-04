@@ -1,21 +1,16 @@
-<?php  //echo validation_errors(); ?>
 		
-<div class="col-xs-6">
+<div class="col-xs-4">
 	<p><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		</button>
 	</p>
 </div>
 
-	<div align="" class="col-xs-6">
-		<?=form_open('empleados/search');?>
-		<?php 	$search = array('name' => 'search','id' => 'search','value'=>'' );?>
-		<?=	form_input($search);?> <input type=submit value='Buscar' /></p>
-		<?=form_close();?>
-	</div>
+<?php $this->load->view('empleados/search'); ?>
 
-
-<table class="table table-striped">
+<?php if (isset($empleado)): ?>
+			
+	<table class="table table-striped">
 		<tr>
 			<td>Numero de Empleado</td>
 			<td>Nombre</td>
@@ -23,10 +18,7 @@
 			<td>Acciones</td>
 
 		</tr>
-		<tr>
-<?php if (isset($empleado)): ?>
-			
-			
+		<tr>		
 <?php	foreach ($empleado as $empleado): ?>
 			<?php 
 				$atributo_boton_modificar = array('data-toggle' => 'modal', 'data-target' => '.bs-example-modal-sm', 'class' => 'btn btn-warning glyphicon glyphicon-pencil');
@@ -52,9 +44,15 @@
 		</tr>
 <?php 	endforeach;?>
 <?php endif ?>
-</table>	
+</table>
+
+<?php if (isset($noencontrado)): ?>
+	<div align="center" class="col-xs-12 alert alert-warning">
+		<?=$noencontrado;?>
+	</div>	
+<?php endif ?>
+
 </div>	
-	
 
 <!-- Small modal -->
 

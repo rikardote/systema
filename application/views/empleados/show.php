@@ -6,12 +6,12 @@
 		</button>
 	</p>
 </div>
-	<div class="col-xs-6">
-		<?=form_open('empleados/search');?>
-		<?php 	$search = array('name' => 'search','id' => 'search','value'=>'' );?>
-		<?=	form_input($search);?> <input type=submit value='Search' /></p>
-		<?=form_close();?>
-	</div>
+
+
+<?php $this->load->view('empleados/search'); ?>
+
+
+
 <div class="col-xs-12">
 <ul class="nav nav-tabs">
   <li class="active"><a href="#tab_a" data-toggle="tab">Datos Generales</a></li>

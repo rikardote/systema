@@ -27,3 +27,26 @@
 </div> 
 
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#miFormulario").submit(function( event ){
+		event.preventDefault();
+
+		$.ajax({
+			type: 'POST',
+			url: '<?php echo site_url("empleados/add");?>',
+			data: $(this).serialize(),
+			success: function(data){
+				$("#msg").slideDown();
+				$("#msg").html(data);
+				
+
+			}
+		});
+
+		return false;
+	});
+});
+
+	
+</script>
