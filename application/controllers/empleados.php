@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ 
 class Empleados extends CI_Controller {
 	public function __construct()
 	{
@@ -72,10 +72,13 @@ class Empleados extends CI_Controller {
 			$insert_id = $this->db->insert_id();
 
 			if (isset($insert_id)) {
-				echo "<script>location.href='empleados/".$insert_id."</script>"; 
+				//redirect('empleados/'.$insert_id,'refresh'); 
+				echo $insert_id;
+				
 			}
-			//redirect('empleados/'.$insert_id);
-			//echo '<div id= "redirect" class="label label-danger" role="alert">Llene todos los campos correctamente</div>';
+		
+			
+			
    			
 			
 

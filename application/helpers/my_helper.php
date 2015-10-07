@@ -28,9 +28,17 @@ if(!function_exists('generateRandomString')) {
 if(!function_exists('fecha_dma')) {
     
 	function fecha_dma($fecha) {
-
-        $fecha = date("d/m/Y", strtotime($fecha));
+        $date = date_create($fecha);
+        $fecha = date_format($date,"d/m/Y");
         
+        return $fecha;
+    }
+}
+if(!function_exists('fecha_ymd')) {
+    
+    function fecha_ymd($fecha) {
+ 
+        $fecha = date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));
         return $fecha;
     }
 }

@@ -1,29 +1,56 @@
-
-<?php validation_errors();  ?> 
 <div class="col-md-6">
-<?php 	foreach ($capturas as $row): ?> 
-<?php 		echo "Qna: "; ?>
-<?php 		echo $row->qna_mes.'/'.$row->qna_year.' '.$row->qna_descripcion.'<br>'; ?>
-<?php		echo "Empleado: "; ?>
-<?php  		echo nombre_completo($row->nombres,$row->apellido_pat,$row->apellido_mat.'<br>'); ?>
-<?php  		echo "Incidencia: "; ?>
-<?php		echo $row->incidencia_cod.'<br>';?>
-<?php  		echo "Fecha inicial: "; ?>
-<?php		echo fecha_dma($row->fecha_inicial);?>
-<?php		echo '<br>';?>
-<?php  		echo "Fecha Final: "; ?>
-<?php		echo fecha_dma($row->fecha_final);?>
-<?php		echo '<br>';?>
-<?php 	endforeach; ?>
-</div>	
-			
-<div class="col-md-6">
-	<?php $this->load->view('capturar/form', $options); ?>
+<?php $this->load->view('capturar/search'); ?>
 </div>
 
+<?php if (isset($empleado)): ?>
+			
+	<table class="table table-striped">
+		<tr>
+			<td>Numero de Empleado</td>
+			<td>Nombre</td>
+			<td>Adscripcion</td>
+			<td align="center">Qnas</td>
+
+		</tr>
+		<tr>		
+<?php	foreach ($empleado as $empleado): ?>
+			<?php 
+				$atributo_boton_modificar = array('class' => 'btn btn-warning glyphicon glyphicon-pencil');
+				
+			 ?>
+				<?php
+					if($empleado->activo) {
+						$atributo_boton_activate = array('class' => 'btn btn-success glyphicon glyphicon-off'); 
+					} else {
+						$atributo_boton_activate = array('class' => 'btn btn-default glyphicon glyphicon-off'); 
+					}
+				?>
+
+				<td><?php echo anchor('captura/show/'.$empleado->id, $empleado->num_empleado);?></td>
+				<td><?php echo anchor('captura/show/'.$empleado->id, nombre_completo($empleado->nombres,$empleado->apellido_pat,$empleado->apellido_mat)) ?></td>
+				<td><?php echo $empleado->adscripcion;?></td>
+				<td align="center">
+					<?php	foreach ($qnas_activas as $qna): ?>
+					<?php 		echo anchor('captura/show/'.$empleado->id.'/'.$qna->id,$qna->qna_mes,$atributo_boton_modificar);?> 
+					<?php	endforeach;?>
+				</td>
+
+					
+		</tr>
+
 		
-		
-	
+<?php 	endforeach;?>
+<?php endif ?>
+</table>
+
+<?php if (isset($noencontrado)): ?>
+	<div align="center" class="col-xs-12 alert alert-warning">
+		<?=$noencontrado;?>
+	</div>	
+<?php endif ?>
+
+</div>	
+
 	
 
 	

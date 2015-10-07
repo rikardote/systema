@@ -38,7 +38,8 @@ $(document).ready(function(){
 			data: $(this).serialize(),
 			success: function(data){
 				$("#msg").slideDown();
-				$("#msg").html(data);
+				
+				window.location = "<?php echo site_url('empleados/show/');?>/" + data;
 				
 
 			}

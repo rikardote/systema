@@ -16,49 +16,53 @@ class Captura_model extends My_Model {
     	parent::__construct();
     }
 
-    public function get_incidencias(){
+    public function get_incidencias($emp_id,$qn_id){
     
-        $this->db->select('*');
+        $this->db->select("captura_incidencias.*, 
+            incidencias.id AS inc_id, incidencias.incidencia_cod,
+            periodos.id AS perio_id, periodos.period, periodos.year
+        ");
 
         $this->db->from('captura_incidencias');
         $this->db->join('qnas', 'qnas.id = captura_incidencias.qna_id');
         $this->db->join('empleados', 'empleados.id = captura_incidencias.empleado_id');
         $this->db->join('incidencias', 'incidencias.id = captura_incidencias.incidencia_id');
+        $this->db->join('periodos', 'periodos.id = captura_incidencias.periodo_id');
+        $this->db->where('qna_id', $qn_id);
+        $this->db->where('empleado_id', $emp_id);
      
         $query = $this->db->get();
         return $query->result();
  }
+ 
 
- public $rules = array(
-           
-            'qna_id' => array('field'=>'qna_id',
-                        'label'=>'QNA',
-                        'rules'=>'trim|required',
-                        'errors' => array ('required' => 'Error Message rule "required" for field email')
-                        ),
-            'empleado_id' => array('field'=>'empleado_id',
-                        'label'=>'Empleado',
-                        'rules'=>'trim|required',
-                        'errors' => array ('required' => 'Error Message rule "required" for field email')
-                        ),
-            'incidencia_id' => array('field'=>'incidencia_id',
-                        'label'=>'Codigo de incidencia',
-                        'rules'=>'trim|required',
-                        'errors' => array ('required' => 'Error Message rule "required" for field email')
-                        ),
-            'fecha_inicial' => array('field'=>'fecha_inicial',
-                        'label'=>'Fecha inicial',
-                        'rules'=>'trim|required',
-                        'errors' => array ('required' => 'Error Message rule "required" for field email')
-                        ),
-            'fecha_final' => array('field'=>'fecha_final',
-                        'label'=>'Fecha Final',
-                        'rules'=>'trim|required',
-                        'errors' => array ('required' => 'Error Message rule "required" for field email')
-                        ),
-            'token' => array('field'=>'token')
+function get_search() {
+          $match = $this->input->post('search');
+          $this->db->select("empleados.*, adscripciones.id AS ads_id, adscripciones.adscripcion");
+          $this->db->from('empleados');
+          $this->db->join('adscripciones', 'adscripcion_id = adscripciones.id');
+          $this->db->where('empleados.num_empleado', $match);
+          $this->db->or_where('empleados.apellido_pat', $match);
+          $this->db->or_where('empleados.apellido_mat', $match);
+          
+          $query = $this->db->get();
+          return $query->result();
+        }
 
-    );
+ public function get_empleado_join($id){
+        
+            $this->db->select("empleados.*, adscripciones.id AS ads_id, adscripciones.adscripcion");
+            $this->db->from('empleados');
+            $this->db->join('adscripciones', 'adscripcion_id = adscripciones.id');
+            $this->db->where('empleados.id', $id);
+            
+            $query = $this->db->get();
+            return $query->row();
+     }   
+
+   
+    
+
 
 }
 
