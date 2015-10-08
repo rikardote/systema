@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Periodos extends CI_Controller {
+
+class Periodos extends My_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,6 +13,9 @@ class Periodos extends CI_Controller {
 
 	public function index()
 	{
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+		$data['is_admin']   = $this->tank_auth->is_admin();
 		$data['panelheading'] = "Periodos";
 		$data['index'] = "periodos/index";
 

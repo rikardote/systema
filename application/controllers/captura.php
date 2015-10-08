@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Captura extends CI_Controller {
+class Captura extends My_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,7 +12,8 @@ class Captura extends CI_Controller {
 
 	public function index()
 	{	
-		
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
 		$data['panelheading'] = "Captura de Incidencias";
 		
 		$data['index'] = "capturar/index";
@@ -21,6 +22,8 @@ class Captura extends CI_Controller {
 		
 	}
 	public function show() {
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        	$data['username']   = $this->tank_auth->get_username();
 
 		$data['panelheading'] = "Captura de incidencias";
 
@@ -138,6 +141,8 @@ class Captura extends CI_Controller {
 	}
 
 	public function search(){
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        	$data['username']   = $this->tank_auth->get_username();
     	$data['panelheading'] = "Captura de Incidencias";
 		
 		

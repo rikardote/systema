@@ -1,10 +1,11 @@
-<div class="col-md-6">
-	<p><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+<?php if ($is_admin): ?>
+	<div class="col-md-6">
+		<p><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
-	</button></p>
-</div>
-
+		</button></p>
+	</div>
+<?php endif ?>
 
 	
 
@@ -12,17 +13,26 @@
 		<tr>
 			<td><b>Codigo</b></td>
 			<td><b>Descripcion</b></td>
-			<td><b>Acciones</b></td>
+			<?php if ($is_admin): ?>
+				<td><b>Acciones</b></td>
+			<?php endif ?>
 		</tr>
-		<tr>
+		
 <?php	foreach ($adscripciones as $adscripcion): ?>
+		<tr>
 				<?php 
 					$atributo_boton_modificar = array('data-toggle' => 'modal', 'data-target' => '.bs-example-modal-sm', 'class' => 'btn btn-success glyphicon glyphicon-pencil');
 					$atributo_boton_eliminar = array('class' => 'btn btn-danger glyphicon glyphicon-remove', 'onclick' => "javascript:return confirm('Seguro que desea eliminar este dato?')");				
 				 ?>
 				<td><?php echo $adscripcion->adscripcion;?></td>
 				<td><?php echo $adscripcion->descripcion;?></td>
-				<td><?php echo anchor('adscripciones/edit/'.$adscripcion->id,' ',$atributo_boton_modificar);?> <?php echo anchor('adscripciones/delete/'.$adscripcion->id,' ',$atributo_boton_eliminar);?></td>
+			<?php if ($is_admin): ?>	
+				<td>
+					<?php echo anchor('adscripciones/edit/'.$adscripcion->id,' ',$atributo_boton_modificar);?> 
+					<?php echo anchor('adscripciones/delete/'.$adscripcion->id,' ',$atributo_boton_eliminar);?>
+				</td>
+			<?php endif ?>
+
 			</tr>
 	<?php 	endforeach;?>
 

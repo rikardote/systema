@@ -1,10 +1,11 @@
-<div class="col-md-6">
-	<p><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+<?php if ($is_admin): ?>
+	<div class="col-md-6">
+		<p><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
-	</button></p>
-</div>
-
+		</button></p>
+	</div>
+<?php endif ?>
 
 	
 
@@ -12,10 +13,13 @@
 		<tr>
 			<td><b>Periodo</b></td>
 			<td><b>Ano</b></td>
-			<td><b>Acciones</b></td>
+			<?php if ($is_admin): ?>
+				<td><b>Acciones</b></td>
+			<?php endif ?>
 		</tr>
 		<tr>
 <?php	foreach ($periodos as $periodo): ?>
+			
 				<?php 
 					$atributo_boton_modificar = array('data-toggle' => 'modal', 'data-target' => '.bs-example-modal-sm', 'class' => 'btn btn-success glyphicon glyphicon-pencil');
 					$atributo_boton_eliminar = array('class' => 'btn btn-danger glyphicon glyphicon-remove', 'onclick' => "javascript:return confirm('Seguro que desea eliminar este dato?')");				
@@ -30,14 +34,18 @@
 				<?php if ($periodo->id != 10): ?>
 					<td><?php echo $periodo->period;?></td>
 					<td><?php echo $periodo->year;?></td>
-					<td>
-						<?php echo anchor('periodos/activate/'.$periodo->id,' ',$atributo_boton_activate);?>
-						<?php echo anchor('periodos/edit/'.$periodo->id,' ',$atributo_boton_modificar);?> 
-						<?php echo anchor('periodos/delete/'.$periodo->id,' ',$atributo_boton_eliminar);?>
-					</td>
+					<?php if ($is_admin): ?>
+						<td>
+							<?php echo anchor('periodos/activate/'.$periodo->id,' ',$atributo_boton_activate);?>
+							<?php echo anchor('periodos/edit/'.$periodo->id,' ',$atributo_boton_modificar);?> 
+							<?php echo anchor('periodos/delete/'.$periodo->id,' ',$atributo_boton_eliminar);?>
+						</td>
+					<?php endif ?>			
 				<?php endif; ?>
-			</tr>
+	</tr>			
 	<?php 	endforeach;?>
+	
+
 
 </table>	
 	<div align="center"><ul class="pagination"> <?php echo $this->pagination->create_links(); ?> </ul></div>

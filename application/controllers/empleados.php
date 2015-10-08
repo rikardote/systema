@@ -1,36 +1,43 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Empleados extends CI_Controller {
+class Empleados extends MY_Controller {
 	public function __construct()
 	{
+
 		parent::__construct();
 		$this->load->model('empleado_model');
 		$this->load->helper('dropdown');
+	
 
 	
 	}
 
 	public function index()
-	{
-		
+	{			
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+		$data['is_admin']   = $this->tank_auth->is_admin();
 		$data['panelheading'] = "Empleados";
-			
 		$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');
 		$data['index'] = "empleados/index";
 		$this->load->view('layouts/index', $data);
+		
 
 	}
 	public function show($id) {
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+	    $data['is_admin']   = $this->tank_auth->is_admin();
 		if ($this->uri->segment(3) != '') {
 			$id = $this->uri->segment(3);
 		}
-			$data['empleado'] = $this->empleado_model->get_empleado_join($id);
-			$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');
-			$data['index'] = "empleados/show";
-			$data['panelheading'] = "Empleados";
+		$data['empleado'] = $this->empleado_model->get_empleado_join($id);
+		$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');
+		$data['index'] = "empleados/show";
+		$data['panelheading'] = "Empleados";
 			
-			$this->load->view('layouts/index', $data);
+		$this->load->view('layouts/index', $data);
 		
 	}
 	public function add() {
@@ -167,6 +174,9 @@ class Empleados extends CI_Controller {
         }
     }
     public function search(){
+    	$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+        $data['is_admin']   = $this->tank_auth->is_admin();
     	$data['panelheading'] = "Empleados";
 		//$data['empleados'] = $this->empleado_model->get_empleados();
 		

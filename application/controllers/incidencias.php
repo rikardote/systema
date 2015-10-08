@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Incidencias extends CI_Controller {
+class Incidencias extends My_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -11,6 +11,9 @@ class Incidencias extends CI_Controller {
 
 	public function index()
 	{
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+        $data['is_admin']   = $this->tank_auth->is_admin();
 		$data['panelheading'] = "Tipos de Incidencias";
 		$data['index'] = "incidencias/index";
 		

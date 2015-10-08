@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="<?php echo site_url();?>assets/css/my_style.css">
+
 <link rel="stylesheet" href="<?php echo site_url();?>assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <script src="<?php echo site_url();?>assets/js/jquery-1.11.3.min.js"></script>
@@ -20,9 +21,9 @@
 
 
 </head>
-<body>
+<body class="mygradient">
 	<!-- Barra de navegacion -->
-	<?php $this->load->view('layouts/nav'); ?>
+	<?php $this->load->view('layouts/nav',$username); ?>
 
 	
 	

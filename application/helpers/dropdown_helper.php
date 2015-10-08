@@ -25,12 +25,10 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
       //if($orderBy) {
           $CI->db->order_by($value2, 'DESC')->order_by($value, 'DESC');
       //}
-      $query = $CI->db->select("'id',$name,$value,$value2")->from($table)->get();
+      $query = $CI->db->select("'id',$name,$value,$value2,'activo'")->from($table)->where('activo', 1)->get();
       if ($query->num_rows() > 0 ) {
           foreach($query->result() as $data) {
-              if ($data->id != 10) {
-                 $items[$data->$name] = $data->$value.'/'.$data->$value2;
-              }
+             $items[$data->$name] = $data->$value.'/'.$data->$value2;
           }
           $query->free_result();
           return array('0' => 'Selecciona una opcion') + $items;

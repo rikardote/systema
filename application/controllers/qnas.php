@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Qnas extends CI_Controller {
+class Qnas extends My_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -11,9 +11,11 @@ class Qnas extends CI_Controller {
 
 	public function index()
 	{
-		
+		$data['user_id']    = $this->tank_auth->get_user_id();
+        $data['username']   = $this->tank_auth->get_username();
+        $data['is_admin']   = $this->tank_auth->is_admin();
 		//$config = array();
-		$data['panelheading'] = "Activar/Desactivar Quincenas";
+		$data['panelheading'] = "Quincenas";
 		$data['index'] = "qnas/index";
 		
 
