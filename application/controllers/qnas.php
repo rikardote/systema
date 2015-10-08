@@ -16,6 +16,7 @@ class Qnas extends My_Controller {
         $data['is_admin']   = $this->tank_auth->is_admin();
 		//$config = array();
 		$data['panelheading'] = "Quincenas";
+		
 		$data['index'] = "qnas/index";
 		
 

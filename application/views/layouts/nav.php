@@ -8,18 +8,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?=base_url()?>home">SISSSTEMA</a>
+          <a class="brand" href="#"><img src="<?php echo base_url();?>/assets/images/logo.png" alt=""></a>
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="<?=base_url()?>empleados">Empleados <span class="sr-only">(current)</span></a></li>
-        <li><a href="<?=base_url()?>qnas">Quincenas</a></li>
-        <li><a href="<?=base_url()?>adscripciones">Adscripciones</a></li>
-        <li><a href="<?=base_url()?>incidencias">Incidencias</a></li>
-        <li><a href="<?=base_url()?>captura">Capturar Incidencias</a></li>
-        <li><a href="<?=base_url()?>periodos">Periodos Vacacionales</a></li>
+        
+        <li class="<?php echo active_link('empleados'); ?>"><a href="<?php echo base_url();?>empleados">Empleados</a></li>
+        <li class="<?php echo active_link('captura'); ?>"><a href="<?php echo base_url();?>captura">Capturar Incidencias</a></li>
+        <li class="<?php echo active_link('qnas'); ?>"><a href="<?php echo base_url();?>qnas">Quincenas</a></li>
+        <li class="<?php echo active_link('adscripciones'); ?>"><a href="<?php echo base_url();?>adscripciones">Adscripciones</a></li>
+        <li class="<?php echo active_link('incidencias'); ?>"><a href="<?php echo base_url();?>incidencias">Incidencias</a></li>
+        
+        <li class="<?php echo active_link('periodos'); ?>"><a href="<?php echo base_url();?>periodos">Periodos</a></li>
+        
       </ul>
       
       <ul class="nav navbar-nav navbar-right">

@@ -58,6 +58,16 @@ footer {  margin: 40px 0; padding-top: 20px; text-align: right; }
   left: initial;
   font-size: 14px;
 }
+.navbar-right {
+   padding-right: 15px;
+}
+
+.brand
+{
+  
+  height: 0px;
+  width: 100px;
+}
 
 .navbar-default {
   background-color: #2980b9;
@@ -131,4 +141,9 @@ footer {  margin: 40px 0; padding-top: 20px; text-align: right; }
     color: #ecdbff;
     background-color: #4aa3df;
   }
+}
+.img-responsive2 {
+    display: inline-block;
+    max-width: 20%;
+    height: auto;
 }
