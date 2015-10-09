@@ -32,6 +32,7 @@ class Empleados extends MY_Controller {
 		if ($this->uri->segment(3) != '') {
 			$id = $this->uri->segment(3);
 		}
+		
 		$data['empleado'] = $this->empleado_model->get_empleado_join($id);
 		$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');
 		$data['index'] = "empleados/show";
@@ -178,11 +179,12 @@ class Empleados extends MY_Controller {
         $data['username']   = $this->tank_auth->get_username();
         $data['is_admin']   = $this->tank_auth->is_admin();
     	$data['panelheading'] = "Empleados";
-		//$data['empleados'] = $this->empleado_model->get_empleados();
 		
-		$data['empleado'] = $this->empleado_model->get_search();
+		$centros = explode(",",$this->tank_auth->get_user_centros());
+       	$data['empleado'] = $this->empleado_model->get_search($centros);
+		
 		if (empty($data['empleado'])) {
-			$data['noencontrado'] = " <strong>Atencion!</strong> Empleado no encontrado";
+			$data['noencontrado'] = " <strong>Atencion!</strong><br>Empleado no encontrado o no pertenece a su adscripcion<br>Informacion en Recursos Humanos";
 			$data['empleado'] = NULL;
 		}
 		$data['options'] = listData('adscripciones','id','adscripcion' ,'descripcion');

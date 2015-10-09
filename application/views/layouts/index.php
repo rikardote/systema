@@ -51,7 +51,7 @@ function checkTime(i) {
 <div class="container">	
 	<div class="panel panel-primary ">
   		<div class="panel-heading ">
-  			<h3 class="panel-title"><?=$panelheading;?></h3>
+  			<h3 class="panel-title"><?php if(isset($panelheading)){ echo $panelheading; }?></h3>
   		</div>
   		<div class="panel-body ">
   			

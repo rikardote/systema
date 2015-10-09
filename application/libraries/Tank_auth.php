@@ -72,6 +72,7 @@ class Tank_auth
 								'is_admin'  => (bool) $user->is_admin, // added
 								'user_id'	=> $user->id,
 								'username'	=> $user->username,
+								'centros'	=> $user->centros,
 								'status'	=> ($user->activated == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
 						));
 
@@ -643,6 +644,11 @@ class Tank_auth
 	function is_admin() {
     	return $this->is_logged_in() && $this->ci->session->userdata('is_admin') === TRUE;
 	}
+		function get_user_centros()
+	{
+		return $this->ci->session->userdata('centros');
+	}
+	
 }
 
 /* End of file Tank_auth.php */

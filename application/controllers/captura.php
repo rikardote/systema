@@ -14,6 +14,7 @@ class Captura extends My_Controller {
 	{	
 		$data['user_id']    = $this->tank_auth->get_user_id();
         $data['username']   = $this->tank_auth->get_username();
+                
 		$data['panelheading'] = "Captura de Incidencias";
 		
 		$data['index'] = "capturar/index";
@@ -23,7 +24,7 @@ class Captura extends My_Controller {
 	}
 	public function show() {
 		$data['user_id']    = $this->tank_auth->get_user_id();
-        	$data['username']   = $this->tank_auth->get_username();
+        $data['username']   = $this->tank_auth->get_username();
 
 		$data['panelheading'] = "Captura de incidencias";
 
@@ -44,6 +45,7 @@ class Captura extends My_Controller {
 			$id = $this->uri->segment(3);
 			$data['index'] = "capturar";
 		}
+			
 			$data['empleado'] = $this->captura_model->get_empleado_join($id);
 			
 			$data['options'] = listData('incidencias','id','incidencia_cod' ,'inc_descripcion');
@@ -56,6 +58,7 @@ class Captura extends My_Controller {
 	
 
 	public function add() {
+		$capturado_por    =  $this->tank_auth->get_username();
 		$qna_id  	  = $this->input->post('qna_id');
 		$empleado_id  = $this->input->post('empleado_id');
 		$qna_id  	  = $this->input->post('qna_id');
@@ -112,6 +115,7 @@ class Captura extends My_Controller {
 						'fecha_final' => fecha_ymd($fecha_final),
 						'periodo_id' => $periodo,
 						'token' => $token,
+						'capturado_por' => $capturado_por,
 
 					));
 				}
@@ -142,11 +146,12 @@ class Captura extends My_Controller {
 
 	public function search(){
 		$data['user_id']    = $this->tank_auth->get_user_id();
-        	$data['username']   = $this->tank_auth->get_username();
+       	$data['username']   = $this->tank_auth->get_username();
     	$data['panelheading'] = "Captura de Incidencias";
 		
 		
-		$data['empleado'] = $this->captura_model->get_search();
+		$centros = explode(",",$this->tank_auth->get_user_centros());
+       		$data['empleado'] = $this->captura_model->get_search($centros);
 		if (empty($data['empleado'])) {
 			$data['noencontrado'] = " <strong>Atencion!</strong> Empleado no encontrado";
 			$data['empleado'] = NULL;

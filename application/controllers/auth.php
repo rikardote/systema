@@ -115,7 +115,7 @@ class Auth extends CI_Controller
 	 *
 	 * @return void
 	 */
-	function register()
+	public function register()
 	{
 		if ($this->tank_auth->is_logged_in()) {									// logged in
 			redirect('');

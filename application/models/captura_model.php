@@ -37,14 +37,15 @@ class Captura_model extends My_Model {
  }
  
 
-function get_search() {
+function get_search($centros=NULL) {
           $match = $this->input->post('search');
           $this->db->select("empleados.*, adscripciones.id AS ads_id, adscripciones.adscripcion");
           $this->db->from('empleados');
           $this->db->join('adscripciones', 'adscripcion_id = adscripciones.id');
+          $this->db->where_in('adscripcion_id',$centros);
           $this->db->where('empleados.num_empleado', $match);
-          $this->db->or_where('empleados.apellido_pat', $match);
-          $this->db->or_where('empleados.apellido_mat', $match);
+          //$this->db->or_where('empleados.apellido_pat', $match);
+          //$this->db->or_where('empleados.apellido_mat', $match);
           
           $query = $this->db->get();
           return $query->result();
