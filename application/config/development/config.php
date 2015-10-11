@@ -18,7 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://www.sissstema.com/';
-//$config['base_url'] = 'http://192.168.33.10/sistema/';
+$config['base_url'] = 'http://192.168.33.10/sistema/';
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -29,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -484,7 +485,7 @@ $config['time_reference'] = 'local';
 | Note: You need to have eval() enabled for this to work.
 |
 */
-$config['rewrite_short_tags'] = TRUE;
+$config['rewrite_short_tags'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
