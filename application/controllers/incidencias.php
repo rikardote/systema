@@ -55,7 +55,7 @@ class Incidencias extends My_Controller {
 		
 		$this->form_validation->set_rules('incidencia_cod', 'Codigo de Incidencia', 'trim|required|numeric|min_length[1]|max_length[3]');
 		$this->form_validation->set_rules('inc_descripcion', 'Descripcion', 'trim|required|min_length[4]|max_length[80]');
-		
+		$this->form_validation->set_rules('grupo', 'Grupo', 'trim|required');
 		if($this->form_validation->run() == FALSE) {
 			$data = array(
 					'errors' => validation_errors()
@@ -66,10 +66,12 @@ class Incidencias extends My_Controller {
 		else {
 			$codigo 	= $this->input->post('incidencia_cod');
 			$descripcion 	= strtoupper($this->input->post('inc_descripcion'));
+			$grupo 	= $this->input->post('grupo');
 
 			$this->incidencia_model->insert(array(
 				'incidencia_cod' => $codigo,
-				'inc_descripcion' => $descripcion
+				'inc_descripcion' => $descripcion,
+				'grupo' => $grupo,
 			
 			));
 			echo '<div class="label label-success" role="alert">Incidencia actualizada satisfactoriamente</div>';
@@ -96,7 +98,7 @@ class Incidencias extends My_Controller {
 	public function update() {
 		$this->form_validation->set_rules('incidencia_cod', 'Codigo de Incidencia', 'trim|required|numeric|min_length[1]|max_length[3]');
 		$this->form_validation->set_rules('inc_descripcion', 'Descripcion', 'trim|required|min_length[4]|max_length[80]');
-		
+		$this->form_validation->set_rules('grupo', 'Grupo', 'trim|required');
 		if($this->form_validation->run() == FALSE) {
 			$data = array(
 					'errors' => validation_errors()
@@ -111,10 +113,12 @@ class Incidencias extends My_Controller {
 			$id	   		     	= $this->input->post('id');
 			$incidencia_cod     = $this->input->post('incidencia_cod');
 			$inc_descripcion 	= strtoupper($this->input->post('inc_descripcion'));
+			$grupo 	= $this->input->post('grupo');
 
 			$this->incidencia_model->update(array(
 					'incidencia_cod' => $incidencia_cod,
-					'inc_descripcion' => $inc_descripcion),
+					'inc_descripcion' => $inc_descripcion,
+					'grupo' => $grupo),
 					$id
 				
 				);

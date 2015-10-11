@@ -27,6 +27,7 @@ class Admin_model extends My_Model {
             $query = $this->db->get();
             return $query->result();
      }
+     
 
 
 

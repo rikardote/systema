@@ -6,8 +6,8 @@ class Admin extends admin_base {
    public function __construct()
    {
      parent::__construct();
-     $this->load->model('admin_model');
-     $this->load->helper(array('form', 'url'));
+    $this->load->model('admin_model');
+    $this->load->helper(array('form', 'url'));
     $this->load->library('form_validation');
     $this->load->library('../core/security');
     $this->load->library('tank_auth');
@@ -37,6 +37,8 @@ class Admin extends admin_base {
        $this->load->view('layouts/index', $data); 
 
     }
+    
+
     public function activate(){
     if ($this->uri->segment(3) != '') {
       $id = $this->uri->segment(3);
@@ -63,8 +65,63 @@ class Admin extends admin_base {
         );
     redirect('admin/usuarios');
   }
-function logout()
-  {
+  
+  function capturar(){
+       $data['user_id']    = $this->tank_auth->get_user_id();
+       $data['username']   = $this->tank_auth->get_username();
+       $data['panelheading'] = "Captura en Meta-4";
+
+       //$data['users'] = $this->admin_model->get_empleados();
+             
+       $data['index'] = "admin/capturar/index";
+       $this->load->view('layouts/index', $data); 
+  }
+  public function capturar_por_centro(){
+    $this->load->model('adscripcion_model');
+    $this->load->model('admin/capturas');
+    $data['user_id']    = $this->tank_auth->get_user_id();
+    $data['username']   = $this->tank_auth->get_username();
+    $data['panelheading'] = "Captura por centro";
+
+    ///PAGINACION
+    $config["base_url"] = base_url() . "admin/capturar_por_centro";
+    $total_row = $this->adscripcion_model->count();
+    $config["total_rows"] = $total_row;
+    $config["per_page"] = 6;
+    $config['use_page_numbers'] = TRUE;
+    $config['num_links'] = $total_row;
+    $config['cur_tag_open'] = '<li class="active"><a href="#">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+    $config['last_link'] = FALSE;
+    $config['first_link'] = FALSE;
+    $config['next_link'] = '&raquo;';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+    $config['prev_link'] = '&laquo;';
+    $config['prev_tag_open'] = '<li>';
+    $config['prev_tag_close'] = '</li>';
+    $this->pagination->initialize($config); 
+      
+    if($this->uri->segment(3)){
+      $qna_id = ($this->uri->segment(3)) ;
+    }
+    
+    //$data['total_por_centro'] = $this->capturas->get_total_incidencias(40,$centro);
+    $data['get_incidencias'] = $this->capturas->get_incidencias($qna_id);
+
+    //$data['adscripciones'] = $this->adscripcion_model->order_by('adscripcion', 'ASC')->paginate($config["per_page"],$total_row);
+
+
+       $data['index'] = "admin/capturar/por_centro";
+       $this->load->view('layouts/index', $data);
+    }
+  
+
+
+  function logout()
+    {
     $this->tank_auth->logout();
 
     $this->_show_message($this->lang->line('auth_message_logged_out'));
@@ -524,4 +581,5 @@ function logout()
     }
     return TRUE;
   }
+
 }

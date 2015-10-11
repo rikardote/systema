@@ -1,5 +1,5 @@
 <div class="col-md-6">
-<?php $this->load->view('capturar/search'); ?>
+	<?php $this->load->view('capturar/search'); ?>
 </div>
 
 <?php if (isset($empleado)): ?>

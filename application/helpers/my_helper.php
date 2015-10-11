@@ -52,6 +52,15 @@ if ( ! function_exists('active_link'))
         return ($class == $controller) ? 'active' : '';
     }
 }
+if ( ! function_exists('get_total'))
+{
+    function get_total($qna,$centro) {
+        $CI = get_instance();
+       
+       $data= $CI->capturas->get_total_incidencias($qna,$centro);
+        return $data;
+    }
+}
 
 
  

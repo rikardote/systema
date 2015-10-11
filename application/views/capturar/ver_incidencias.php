@@ -20,8 +20,9 @@
 			<td align="center"><?php echo fecha_dma($row->fecha_final);?></td>
 			<td align="center"><?php echo $row->conteo;?></td>
 			<td align="center"><?php if ($row->perio_id!=10) {echo $row->period.'/'.$row->year; }?></td>
-			<td align="center"><?php echo anchor('captura/delete/'.$row->token.'/'.$row->empleado_id.'/'.$row->qna_id,' ',$atributo_boton_eliminar);?></td>
-
+			<?php if (!$row->capturada): ?>
+				<td align="center"><?php echo anchor('captura/delete/'.$row->token.'/'.$row->empleado_id.'/'.$row->qna_id,' ',$atributo_boton_eliminar);?></td>
+			<?php endif ?>
 		
 		</tr>
 	<?php 	endforeach; ?>

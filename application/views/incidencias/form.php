@@ -1,5 +1,13 @@
 
 <div class="form-group">
+<?php $options = array(
+				  '0'  => 'Seleccion un grupo...',	
+                  '100'  => 'INCIDENCIAS',
+                  '200'    => 'LICENCIAS/PERMISOS',
+                  '300'   => 'VACACIONES',
+                  '400' => 'OTROS',
+                );
+?>
 
 <?php $atributos = array('id' => 'miFormulario', 'name' => 'miFormulario'); ?>	
 <?php $atribs_ads = array('id' => 'incidencia_cod','name' => 'codigo','class' => 'form-control'); ?>	
@@ -11,7 +19,9 @@
 <?php	echo form_label('Codigo de Incidencia', 'incidencia_id');?>
 <?php	echo form_input('incidencia_cod','',$atribs_ads);?>
 <?php	echo form_label('Descripcion', 'inc_descripcion');?>
-<?php	echo form_input('inc_descripcion','',$atribs_des); ?>    
+<?php	echo form_input('inc_descripcion','',$atribs_des); ?> 
+<?php	echo form_label('Grupo de incidencia', 'grupo');?>  
+<?php   echo form_dropdown('grupo', $options, '0','class = form-control'); ?>
 
 
 <div id="msg"></div>	
