@@ -61,6 +61,15 @@ if ( ! function_exists('get_total'))
         return $data;
     }
 }
+if ( ! function_exists('get_total_pendientes'))
+{
+    function get_total_pendientes($qna,$centro) {
+        $CI = get_instance();
+       
+       $data= $CI->capturas->get_total_pendientes($qna,$centro);
+        return $data;
+    }
+}
 
 
  

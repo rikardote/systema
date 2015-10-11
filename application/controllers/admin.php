@@ -70,15 +70,65 @@ class Admin extends admin_base {
        $data['user_id']    = $this->tank_auth->get_user_id();
        $data['username']   = $this->tank_auth->get_username();
        $data['panelheading'] = "Captura en Meta-4";
-
+       $this->load->model('qna_model');
        //$data['users'] = $this->admin_model->get_empleados();
-             
+       $data['qnas'] = $this->qna_model->where('activa','1')->get_all();             
        $data['index'] = "admin/capturar/index";
        $this->load->view('layouts/index', $data); 
   }
+   public function capturar_all_centro(){
+    $this->load->model('adscripcion_model');
+    
+    $this->load->model('admin/capturas');
+    
+    $data['user_id']    = $this->tank_auth->get_user_id();
+    $data['username']   = $this->tank_auth->get_username();
+    
+
+    ///PAGINACION
+    $config["base_url"] = base_url() . "admin/capturar_por_centro";
+    $total_row = $this->adscripcion_model->count();
+    $config["total_rows"] = $total_row;
+    $config["per_page"] = 6;
+    $config['use_page_numbers'] = TRUE;
+    $config['num_links'] = $total_row;
+    $config['cur_tag_open'] = '<li class="active"><a href="#">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+    $config['last_link'] = FALSE;
+    $config['first_link'] = FALSE;
+    $config['next_link'] = '&raquo;';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+    $config['prev_link'] = '&laquo;';
+    $config['prev_tag_open'] = '<li>';
+    $config['prev_tag_close'] = '</li>';
+    $this->pagination->initialize($config); 
+      
+    
+    if($this->uri->segment(3) && $this->uri->segment(4)){
+      $qna_id = ($this->uri->segment(3)) ;
+      $adscripcion_id = ($this->uri->segment(4)) ;
+
+      $data['get_all_incidencias'] = $this->capturas->get_all_incidencias($qna_id, $adscripcion_id);  
+    }
+    foreach ($data['get_all_incidencias'] as $row) {
+      $data['panelheading'] = $row->descripcion;
+    }
+    
+    
+    //$data['adscripciones'] = $this->adscripcion_model->order_by('adscripcion', 'ASC')->paginate($config["per_page"],$total_row);
+
+
+       $data['index'] = "admin/capturar/all_centro";
+       $this->load->view('layouts/index', $data);
+    }
   public function capturar_por_centro(){
     $this->load->model('adscripcion_model');
+    
     $this->load->model('admin/capturas');
+    
     $data['user_id']    = $this->tank_auth->get_user_id();
     $data['username']   = $this->tank_auth->get_username();
     $data['panelheading'] = "Captura por centro";
@@ -106,17 +156,38 @@ class Admin extends admin_base {
       
     if($this->uri->segment(3)){
       $qna_id = ($this->uri->segment(3)) ;
+      $data['get_incidencias'] = $this->capturas->get_incidencias($qna_id);
     }
+   
     
     //$data['total_por_centro'] = $this->capturas->get_total_incidencias(40,$centro);
-    $data['get_incidencias'] = $this->capturas->get_incidencias($qna_id);
-
+    
+    
     //$data['adscripciones'] = $this->adscripcion_model->order_by('adscripcion', 'ASC')->paginate($config["per_page"],$total_row);
 
 
        $data['index'] = "admin/capturar/por_centro";
        $this->load->view('layouts/index', $data);
     }
+    public function capturada($token){
+      $this->load->model('captura_model');
+      if ($this->uri->segment(4) != "" && $this->uri->segment(5) != "" ){
+        $qna_id = $this->uri->segment(4);
+        $adscripcion_id = $this->uri->segment(5);
+
+        $activate = $this->captura_model->where('token', $token)->get_all();
+      }
+      
+      foreach ($activate as $row) {
+        $activa = ($row->capturada) ? FALSE : TRUE; 
+        $this->captura_model->update(array(
+            'capturada' => $activa),
+            $row->id
+          );
+      }
+      
+      redirect('admin/capturar_all_centro/'.$qna_id.'/'.$adscripcion_id);
+  }
   
 
 
