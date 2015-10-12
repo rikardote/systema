@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql209.byethost17.com',
-	'username' => 'b17_15876677',
+	'hostname' => 'mysql.hostinger.mx',
+	'username' => 'u564428218_risha',
 	'password' => 'Animex1980',
-	'database' => 'b17_15876677_sielcpdb',
+	'database' => 'u564428218_siste',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

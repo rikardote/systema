@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://www.sissstema.com/';
+$config['base_url'] = 'http://sistema.96.lt/';
 
 /*
 |--------------------------------------------------------------------------
